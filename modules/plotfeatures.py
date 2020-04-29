@@ -15,6 +15,7 @@ def plotfeats(dict_train_features):
         plt.ylabel('tremolo coefficients')
         plt.title('TREMOLO COEFFICIENTS {}'.format(c))
         plt.grid(True)
+        plt.show()
 
     for c in glob.classes():
         flatness = dict_train_features[c].transpose()[1]
@@ -25,6 +26,7 @@ def plotfeats(dict_train_features):
         plt.ylabel('flatness')
         plt.title('FLATNESS {}'.format(c))
         plt.grid(True)
+        plt.show()
 
     for c in glob.classes():
         rolloff = dict_train_features[c].transpose()[2]
@@ -35,6 +37,7 @@ def plotfeats(dict_train_features):
         plt.ylabel('rolloff coefficients')
         plt.title('ROLLOFF COEFFICIENTS {}'.format(c))
         plt.grid(True)
+        plt.show()
 
     for c in glob.classes():
         centroid = dict_train_features[c].transpose()[3]
@@ -45,3 +48,4 @@ def plotfeats(dict_train_features):
         plt.ylabel('centroid coefficients')
         plt.title('TREMOLO2 COEFFICIENTS {}'.format(c))
         plt.grid(True)
+        plt.show()
