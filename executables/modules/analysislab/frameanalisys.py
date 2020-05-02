@@ -106,5 +106,6 @@ def getframefeatures(audio):
 
     # extract scalar features from analysis
     maxwaveform = maxrange(train_features_frame[:, 0])  # max amplitude of whole signal
+    train_features_frame[:, 0] = train_features_frame[:, 0] / maxwaveform
     tremolofeat = tremolo_feature(train_features_frame[:, 0])
     return [maxwaveform, tremolofeat]

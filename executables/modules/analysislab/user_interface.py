@@ -29,7 +29,7 @@ def featuresnames():
 
 
 def kbest():
-    return 3
+    return 1
 
 
 def framefeats():
