@@ -1,30 +1,19 @@
-import librosa
+from executables.modules.analysislab import user_interface
 import numpy as np
 import scipy as sp
-from executables.modules.glob import Fs
 
 
-# Computes Spectral Flatness
-def compute_flatness(audio):
-    flatness = librosa.feature.spectral_flatness(y=audio,
-                                                 S=None,
-                                                 n_fft=2048,
-                                                 hop_length=512,
-                                                 amin=1e-10,
-                                                 power=2.0)
-    return flatness
+def maxrange(frame):
+    maxPos = np.amax(frame)
+    return maxPos
 
 
-# Computes Spectral Rolloff
-def compute_rolloff(audio):
-    rolloff = librosa.feature.spectral_rolloff(y=audio,
-                                               sr=22050,
-                                               S=None,
-                                               n_fft=2048,
-                                               hop_length=512,
-                                               freq=None,
-                                               roll_percent=0.85)
-    return rolloff
+# Normalized autocorrelation
+def autocorrelate(x):
+    autocorr = np.correlate(x, x, mode='full')[len(x) - 1:]
+    module_autocorr = np.abs(autocorr)
+    norm_autocorr = module_autocorr / np.amax(module_autocorr)
+    return norm_autocorr
 
 
 # Those two functions define a Butterworth low pass filter
@@ -69,19 +58,11 @@ def get_indexed_average(frame, a, b):
     return value
 
 
-# Gets autocorrelation of the array
-def autocorrelate(x):
-    autocorr = np.correlate(x, x, mode='full')[len(x) - 1:]
-    module_autocorr = np.abs(autocorr)
-    norm_autocorr = module_autocorr / np.amax(module_autocorr)
-    return norm_autocorr
-
-
 # Feature that discriminates btw tremolo, nofx, distortion
 # obtained by doing the autocorrelation of the subtraction btw filtered waveform and over sections linearized waveform
 # afterwards it counts the number of relative maxima in the autocorrelation of the difference
 def tremolo_feature_2(audio_waveform, a, b):
-    filtered_wv = butter_lowpass_filter(audio_waveform, 1000, Fs(), order=3)
+    filtered_wv = butter_lowpass_filter(audio_waveform, 1000, user_interface.Fs(), order=3)
     filtered_wv = np.trim_zeros(filtered_wv)
     maxPos = sp.signal.argrelextrema(filtered_wv, np.greater)
     n_sections = int(len(maxPos[0]))
@@ -94,7 +75,7 @@ def tremolo_feature_2(audio_waveform, a, b):
 
 
 def tremolo_feature(audio_waveform):
-    filtered_wv = butter_lowpass_filter(audio_waveform, 1000, Fs(), order=3)
+    filtered_wv = butter_lowpass_filter(audio_waveform, 1000, user_interface.Fs(), order=3)
     filtered_wv = np.trim_zeros(filtered_wv)
     maxPos = sp.signal.argrelextrema(filtered_wv, np.greater)
     n_sections = int(len(maxPos[0]))
@@ -107,3 +88,23 @@ def tremolo_feature(audio_waveform):
     n_rel_max = int(len(maxPos_auto[0]))
 
     return n_rel_max
+
+
+def getframefeatures(audio):
+    train_win_number = int(np.floor((audio.shape[0] - user_interface.winlength()) / user_interface.hopsize()))
+    train_features_frame = np.zeros(
+        train_win_number * user_interface.framefeats()).reshape(train_win_number, user_interface.framefeats())
+    for i in np.arange(train_win_number):
+        # begin frame analysis
+        frame = audio[i * user_interface.hopsize(): i * user_interface.hopsize() + user_interface.winlength()]
+        frame_wind = frame * user_interface.window()  # windowing
+        spec = np.fft.fft(frame_wind)
+        nyquist = int(np.floor(spec.shape[0] / 2))
+        spec = spec[0:nyquist]  # frame spectrum
+        train_features_frame[i, 0] = maxrange(frame)  # save analysis in train_features_frame[i][0,1,..,n data]
+        # end frame analysis
+
+    # extract scalar features from analysis
+    maxwaveform = maxrange(train_features_frame[:, 0])  # max amplitude of whole signal
+    tremolofeat = tremolo_feature(train_features_frame[:, 0])
+    return [maxwaveform, tremolofeat]
