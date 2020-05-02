@@ -18,16 +18,16 @@ def plotfeature(feat, i=-1):
 # param dict_train_features feature dictionary
 def plotfeats(dict_train_features):
     for c in arange(len(classes())):
+        plt.figure(figsize=(10, 10))
         for i in arange(len(featuresnames())):
+            plt.subplot(len(featuresnames()), 1, i + 1)
             feature = dict_train_features[c].transpose()[i]
-
-            plt.figure(figsize=(8, 4))
-            plt.subplot(1, 1, 1)
             plt.stem(feature, use_line_collection=True)
-            plt.ylabel(featuresnames()[i] + ' coefficients')
-            plt.title(featuresnames()[i] + ' coefficients {}'.format(classes()[c]))
+            if i == 0:
+                plt.title(classes()[c] + ' coefficients')
+            plt.ylabel(featuresnames()[i])
             plt.grid(True)
-            plt.show()
+        plt.show()
 
 
 if __name__ == "__main__":  # executable from terminal
