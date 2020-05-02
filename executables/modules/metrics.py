@@ -28,7 +28,7 @@ def compute_overall_metrics(metrics_matrix):
     print("\n Overall Results : \n accuracy = {} \n precision = {} \n recall = {} \n F1 score = {}".format(
         accuracy, precision, recall, F1_score))
 
-def get_metrics( dict_test_features):
+def get_metrics(dict_test_features):
 
     metrics_matrix = []
     n = len(classes())
