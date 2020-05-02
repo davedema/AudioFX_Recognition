@@ -36,10 +36,6 @@ def plotfeats(dict_train_features):
 
     for feat_index, feat in enumerate(featuresnames()):
 
-        train_features_0 = dict_train_features[0]
-        train_features_1 = dict_train_features[1]
-        train_features_2 = dict_train_features[2]
-
         plt.figure(figsize=(10, 10))
         for i in arange(len(classes())):
             sns.distplot(dict_train_features[i][:, feat_index], label='Histogram for {} of feature {}'.format(classes()[i],feat));
