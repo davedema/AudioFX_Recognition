@@ -49,7 +49,7 @@ def plotfeats(dict_train_features):
         for i in arange(len(classes())):
             plt.subplot(len(classes()), 1, i + 1)
             feature = dict_train_features[i].transpose()[c]
-            plt.stem(feature, markerfmt='C3.', use_line_collection=True)
+            plt.stem(feature, markerfmt='C3.',basefmt='C9-', use_line_collection=True)
             if i == 0:
                 plt.title(featuresnames()[c] + ' coefficients')
             plt.ylabel(classes()[i])
