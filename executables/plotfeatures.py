@@ -15,8 +15,8 @@ def plotfeature(feat, i=-1):
     plt.show()
 
 
-# param dict_train_features feature dictionary
-def plotfeats(dict_train_features):
+# one plot per class
+def plotfeats_per_class(dict_train_features):
     for c in arange(len(classes())):
         plt.figure(figsize=(10, 10))
         for i in arange(len(featuresnames())):
@@ -26,6 +26,21 @@ def plotfeats(dict_train_features):
             if i == 0:
                 plt.title(classes()[c] + ' coefficients')
             plt.ylabel(featuresnames()[i])
+            plt.grid(True)
+        plt.show()
+
+
+# one plot per feature
+def plotfeats(dict_train_features):
+    for c in arange(len(featuresnames())):
+        plt.figure(figsize=(10, 10))
+        for i in arange(len(classes())):
+            plt.subplot(len(classes()), 1, i + 1)
+            feature = dict_train_features[i].transpose()[c]
+            plt.stem(feature, use_line_collection=True)
+            if i == 0:
+                plt.title(featuresnames()[c] + ' coefficients')
+            plt.ylabel(classes()[i])
             plt.grid(True)
         plt.show()
 
