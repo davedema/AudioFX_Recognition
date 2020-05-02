@@ -1,4 +1,4 @@
-from executables.modules import testloop, confusionmatrix, dataloader, supportvectormachines
+from executables.modules import testloop, confusionmatrix, dataloader, supportvectormachines, metrics
 from executables.modules.analysislab import user_interface
 import numpy as np
 
@@ -30,6 +30,8 @@ def test():
     # end compute and select features
     y_test_predicted_mv = supportvectormachines.getpredictions(X_train_normalized_loaded_selected, y_train_selected,
                                                                X_test_mc_normalized)  # SVM
+    print('\n\nMetrics:')
+    metrics.get_metrics(dict_test_features)
     print('\n\nConfusion matrix:')
     confusionmatrix.compute_cm_multiclass(y_test_mc, y_test_predicted_mv)  # print confusion matrix
     return True
