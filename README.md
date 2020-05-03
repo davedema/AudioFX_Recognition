@@ -16,16 +16,15 @@ in the folder AudioFX_Recognition/executables/modules/**analysislab** there is t
 the options of the software :
 
 
-..* **Fs** = sampling frequency
-2. **winlength** = window length for windowing operations
-3. **hopsize** = hopsize for windowing operations
-4. **window** = choose the kind of [window](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.get_window.html)
-5. **classes** = names of the classes to distinguish 
-6. **featuresnames** = names of the calculated features
-7. **kbest** = number of features chosen by feature selection
-8. **framefeats** = number of features cinouted for each frame of every audio file
-9. **datapathtest** = path to test database
-10. **datapathtrain** = path to train database
-11. **do_plot**  = boolean defining wheter to plot train features
-..*
+- **Fs** = sampling frequency
+- **winlength** = window length for windowing operations
+- **hopsize** = hopsize for windowing operations
+- **window** = choose the kind of [window](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.get_window.html)-
+- **classes** = names of the classes to distinguish 
+- **featuresnames** = names of the calculated features
+- **kbest** = number of features chosen by feature selection
+- **framefeats** = number of features cinouted for each frame of every audio file
+- **datapathtest** = path to test database
+- **datapathtrain** = path to train database
+- **do_plot**  = boolean defining wheter to plot train features
 
