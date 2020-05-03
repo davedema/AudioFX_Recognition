@@ -22,7 +22,7 @@ Here the user can choose the subsequent options for the software :
 - **classes** = names of the classes to distinguish 
 - **featuresnames** = names of the calculated features
 - **kbest** = number of features chosen by feature selection
-- **framefeats** = number of features cinouted for each frame of every audio file
+- **framefeats** = number of features computed with frameanalysis.getframefeatures()
 - **datapathtest** = path to test database
 - **datapathtrain** = path to train database
 - **do_plot**  = boolean defining wheter to plot train features
