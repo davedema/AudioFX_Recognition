@@ -15,8 +15,8 @@ Feature selection selects 4 best scoring features which will be used in maintest
 in the folder AudioFX_Recognition/executables/modules/**analysislab** there is the **user_interface.py** file, here the user can choose 
 the options of the software :
 
-..*
-1. **Fs** = sampling frequency
+
+..* **Fs** = sampling frequency
 2. **winlength** = window length for windowing operations
 3. **hopsize** = hopsize for windowing operations
 4. **window** = choose the kind of [window](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.get_window.html)
