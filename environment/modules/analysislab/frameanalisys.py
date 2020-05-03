@@ -1,4 +1,4 @@
-from executables.modules.analysislab import user_interface
+from environment.modules.analysislab import user_interface
 import numpy as np
 import scipy as sp
 
@@ -28,7 +28,7 @@ def butter_lowpass_filter(data, cutoff, Fs, order=5):
 # Gets average over sections of the array
 def linear(waveform, n):
     averaged_section = np.array([])
-    section_length = (int)((len(waveform) - 1) / n)
+    section_length = int((len(waveform) - 1) / n)
     lin_fx = np.zeros(len(waveform))
 
     for i in np.arange(n):
@@ -39,11 +39,11 @@ def linear(waveform, n):
         index2 = (i + 1) * (section_length - 1)
 
         if i == 0:
-            linear = np.linspace(0, averaged_section[i], section_length, endpoint=False)
+            li = np.linspace(0, averaged_section[i], section_length, endpoint=False)
         if i > 0:
-            linear = np.linspace(averaged_section[i - 1], averaged_section[i], section_length, endpoint=False)
+            li = np.linspace(averaged_section[i - 1], averaged_section[i], section_length, endpoint=False)
 
-        lin_fx[index1:index2] = linear[0:index2 - index1]
+        lin_fx[index1:index2] = li[0:index2 - index1]
 
     return lin_fx
 

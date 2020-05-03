@@ -1,5 +1,5 @@
-from executables.modules import testloop, confusionmatrix, dataloader, supportvectormachines
-from executables.modules.analysislab import user_interface
+from environment.modules import testloop, confusionmatrix, dataloader, supportvectormachines, metrics
+from environment.modules.analysislab import user_interface
 import numpy as np
 
 

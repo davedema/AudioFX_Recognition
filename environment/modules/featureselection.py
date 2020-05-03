@@ -1,6 +1,6 @@
 from sklearn.feature_selection import SelectKBest
 from sklearn.feature_selection import chi2
-from executables.modules.analysislab.user_interface import kbest
+from environment.modules.analysislab.user_interface import kbest
 
 
 def getfeaturelist(x_train_mc, y_train_mc):

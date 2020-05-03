@@ -1,4 +1,5 @@
-from executables import maintest, maintrain
+import maintest
+import maintrain
 
 maintrain.train()  # train
 maintest.test()  # test

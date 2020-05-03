@@ -1,7 +1,7 @@
 import numpy as np
 import librosa
 import os
-from executables.modules.analysislab import features, user_interface
+from environment.modules.analysislab import features, user_interface
 
 
 def getdicttestfeatures(path):

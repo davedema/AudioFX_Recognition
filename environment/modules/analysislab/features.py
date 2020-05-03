@@ -1,7 +1,7 @@
 import librosa
-from executables.modules.analysislab import frameanalisys
+from environment.modules.analysislab import frameanalisys
 import numpy as np
-from executables.modules.analysislab.user_interface import featuresnames, Fs
+from environment.modules.analysislab.user_interface import featuresnames, Fs
 
 
 # Spectral Flatness

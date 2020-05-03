@@ -1,4 +1,4 @@
-from executables.modules.analysislab import user_interface
+from environment.modules.analysislab import user_interface
 import numpy as np
 
 

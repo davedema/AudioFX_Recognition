@@ -1,6 +1,6 @@
-from executables.modules import trainingloop, featureselection, savetraindata
-from executables import plotfeatures
-from executables.modules.analysislab import user_interface
+from environment.modules import trainingloop, featureselection, savetraindata
+import plotfeatures
+from environment.modules.analysislab import user_interface
 import numpy as np
 
 

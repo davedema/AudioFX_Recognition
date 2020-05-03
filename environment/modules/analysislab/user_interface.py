@@ -29,19 +29,19 @@ def featuresnames():
 
 
 def kbest():
-    return 1
+    return 3
 
 
 def framefeats():
-    return 1
+    return 2
 
 
 def datapathtest():
-    return 'C:/Users/jacop/PycharmProjects/CMLShomework/executables/modules/smalldbtest/Guitar/{}'
+    return 'C:/Users/jacop/PycharmProjects/CMLShomework/environment/modules/analysislab/smalldbtest/{}'
 
 
 def datapathtrain():
-    return 'C:/Users/jacop/PycharmProjects/CMLShomework/executables/modules/smalldbtrain/Guitar/{}'
+    return 'C:/Users/jacop/PycharmProjects/CMLShomework/environment/modules/analysislab/smalldbtrain/{}'
 
 
 def do_plot():
