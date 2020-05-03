@@ -12,9 +12,8 @@ Feature selection selects 4 best scoring features which will be used in maintest
 
 ## User interface 
 
-in the folder AudioFX_Recognition/executables/modules/**analysislab** there is the **user_interface.py** file, here the user can choose 
-the options of the software :
-
+In the folder AudioFX_Recognition/executables/modules/**analysislab** there is the **user_interface.py** file.
+Here the user can choose the subsequent options for the software :
 
 - **Fs** = sampling frequency
 - **winlength** = window length for windowing operations
