@@ -8,7 +8,7 @@ Set path to the database directories in /executables/modules/analysislab/user_in
 
 main.py executes both training and testing. executables/maintrain.py executes only training and executables/maintest.py only testing, executables/plotfeatures.py executes plotting.
 
-Feature selection selects 4 best scoring features which will be used in maintest.py to classify. Number of top scoring features used in classification can be modified in user_interface.py by setting a different k as argument of SelectKBest()
+Feature selection selects 4 best scoring features which will be used in maintest.py to classify. Number of top scoring features used in classification can be modified in user_interface.py by setting a different k as return value kbest().
 
 ## User interface 
 
