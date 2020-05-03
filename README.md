@@ -18,7 +18,7 @@ Here the user can choose the subsequent options for the software :
 - **Fs** = sampling frequency
 - **winlength** = window length for windowing operations
 - **hopsize** = hopsize for windowing operations
-- **window** = choose the kind of [window](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.get_window.html)-
+- **window** = choose the kind of [window](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.get_window.html)
 - **classes** = names of the classes to distinguish 
 - **featuresnames** = names of the calculated features
 - **kbest** = number of features chosen by feature selection
