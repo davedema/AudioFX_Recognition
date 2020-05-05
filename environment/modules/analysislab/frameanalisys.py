@@ -93,7 +93,8 @@ def tremolo_feature(audio_waveform):
 def getframefeatures(audio):
     train_win_number = int(np.floor((audio.shape[0] - user_interface.winlength()) / user_interface.hopsize()))
     train_features_frame = np.zeros(
-        train_win_number * user_interface.framefeats()).reshape(train_win_number, user_interface.framefeats())
+        train_win_number * user_interface.framefeats()).reshape(train_win_number, user_interface.framefeats()) - 1
+    indexes = []
     for i in np.arange(train_win_number):
         # begin frame analysis
         frame = audio[i * user_interface.hopsize(): i * user_interface.hopsize() + user_interface.winlength()]
@@ -101,11 +102,17 @@ def getframefeatures(audio):
         spec = np.fft.fft(frame_wind)
         nyquist = int(np.floor(spec.shape[0] / 2))
         spec = spec[0:nyquist]  # frame spectrum
-        train_features_frame[i, 0] = maxrange(frame)  # save analysis in train_features_frame[i][0,1,..,n data]
+        train_features_frame[i, 0] = maxrange(frame)
+        if maxrange(frame) > maxrange(audio) * 99999 / 100000 > 0:
+            train_features_frame[i, 1] = i * train_win_number
+            indexes.append(i)
+        # save analysis in train_features_frame[i][0,1,..,n data]
         # end frame analysis
 
     # extract scalar features from analysis
     maxwaveform = maxrange(train_features_frame[:, 0])  # max amplitude of whole signal
+    # persistence = maxwaveform - np.nanmean(train_features_frame[:, 0])
     train_features_frame[:, 0] = train_features_frame[:, 0] / maxwaveform
     tremolofeat = tremolo_feature(train_features_frame[:, 0])
-    return [maxwaveform, tremolofeat]
+
+    return [maxwaveform, tremolofeat, len(indexes) / len(audio) * user_interface.winlength()]

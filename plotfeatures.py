@@ -33,18 +33,18 @@ def plotfeats_per_class(dict_train_features):
 
 
 # one plot per feature
-def plotfeats(dict_train_features):
-    for feat_index, feat in enumerate(featuresnames()):
+def plotfeats(dict_train_features, mask=arange(10) + 8):
+    for feat_index, feat in enumerate(mask):
 
         plt.figure(figsize=(10, 10))
         for i in arange(len(classes())):
-            sns.distplot(dict_train_features[i][:, feat_index],
-                         label='Histogram for {} of feature {}'.format(classes()[i], feat));
+            sns.distplot(dict_train_features[i][:, feat],
+                         label='Histogram for {} of feature {}'.format(classes()[i], featuresnames()[feat]))
 
         plt.legend()
         plt.grid(True)
 
-    for c in arange(len(featuresnames())):
+    for d, c in enumerate(mask):
         plt.figure(figsize=(10, 10))
         for i in arange(len(classes())):
             plt.subplot(len(classes()), 1, i + 1)

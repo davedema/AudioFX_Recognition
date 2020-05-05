@@ -6,7 +6,7 @@ from environment.modules.analysislab import features, user_interface
 
 def getdicttrainfeatures(path):
     dict_train_features = {'NoFX': [], 'Distortion': [], 'Tremolo': []}
-    fullpath = path
+    fullpath = path + '/environment/databases/train/{}'
 
     for c in user_interface.classes():  # loops over classes
         n_features = len(user_interface.featuresnames())

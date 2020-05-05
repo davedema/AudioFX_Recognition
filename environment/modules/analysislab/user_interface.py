@@ -25,24 +25,28 @@ def classes():
 
 
 def featuresnames():
-    return ['Flatness', 'Rolloff', 'Max in waveform', 'Tremolo feature']
+    return [
+        'Flatness', 'Rolloff', 'Normalized max in waveform', 'Tremolo feature', 'Avg. centroid', 'Spectral bandwidth',
+        'Zero crossing rate', 'Number of frames in e-5 range from maxima', 'Mfc1', 'Mfc2', 'Mfc3', 'Mfc4'
+        , 'Mfc5', 'Mfc6', 'Mfc7', 'Mfc8', 'Mfc9', 'Mfc10', 'Mfc11', 'Mfc12', 'Mfc13', 'Mfc14', 'Mfc15', 'Mfc16', 'Mfc17'
+        , 'Mfc18', 'Mfc19', 'Mfc20']
 
 
 def kbest():
-    return 3
+    return 5
 
 
 def framefeats():
-    return 2
+    return 3
 
 
 def datapathtest():
-    return 'C:/Users/jacop/PycharmProjects/CMLShomework/environment/modules/analysislab/smalldbtest/{}'
+    return 'C:/Users/jacop/PycharmProjects/CMLShomework'
 
 
 def datapathtrain():
-    return 'C:/Users/jacop/PycharmProjects/CMLShomework/environment/modules/analysislab/smalldbtrain/{}'
+    return 'C:/Users/jacop/PycharmProjects/CMLShomework'
 
 
 def do_plot():
-    return True
+    return False

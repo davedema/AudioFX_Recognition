@@ -1,8 +1,10 @@
-import numpy as np
-from environment.modules.analysislab.user_interface import featuresnames, classes
-from environment.modules import dataloader
-import sklearn.svm
 import itertools
+
+import numpy as np
+import sklearn.svm
+
+from environment.modules import dataloader
+from environment.modules.analysislab.user_interface import classes
 
 
 def compute_metrics(gt_labels, predicted_labels):
@@ -33,7 +35,7 @@ def compute_overall_metrics(metrics_matrix):
 def get_metrics(dict_test_features):
     metrics_matrix = []
     n = len(classes())
-    m = len(featuresnames())
+    m = 4
     for subset in itertools.combinations(classes(), 2):
         class_0 = subset[0]
         class_1 = subset[1]
@@ -73,6 +75,6 @@ def get_metrics(dict_test_features):
         metrics_couple = compute_metrics(y_test, y_test_predicted)
         metrics_matrix = np.append(metrics_matrix, metrics_couple)
 
-    metrics_matrix = np.reshape(metrics_matrix, ((n, m)))
+    metrics_matrix = np.reshape(metrics_matrix, (n, 4))
 
     compute_overall_metrics(metrics_matrix)
