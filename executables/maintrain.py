@@ -1,13 +1,21 @@
-from executables.modules import trainingloop, featureselection, savetraindata
-from executables import plotfeatures
+from executables.modules import trainingloop, featureselection, savetraindata, dataloader
+from executables import plotfeatures, main_traintest
 from executables.modules.analysislab import user_interface
 import numpy as np
 
 
 def train():
     path = user_interface.datapathtrain()
-    dict_train_features = trainingloop.getdicttrainfeatures(path)  # compute train features
-    X_train = [dict_train_features[c] for c in user_interface.classes()]
+    classes = user_interface.classes()
+    datasets = user_interface.generate_datasets()
+
+    if(datasets):
+        dict_train_features = [dataloader.dict_train_feats(c) for c in classes ]
+        X_train = [dict_train_features[c] for c in np.arange(len(classes))]
+    else:
+        dict_train_features = trainingloop.getdicttrainfeatures(path)  # compute train features
+        X_train = [dict_train_features[c] for c in classes]
+
     y_train = [np.ones(X_train[i].shape[0], ) * i for i in np.arange(len(user_interface.classes()))]  # keys
     feat_max = np.max(np.concatenate((X_train[0], X_train[1], X_train[2]), axis=0), axis=0)
     feat_min = np.min(np.concatenate((X_train[0], X_train[1], X_train[2]), axis=0), axis=0)
