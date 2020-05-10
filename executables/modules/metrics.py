@@ -1,5 +1,5 @@
 import numpy as np
-from executables.modules.analysislab.user_interface import featuresnames, classes
+from executables.modules.analysislab.user_interface import featuresnames, classes, generate_datasets
 from executables.modules import dataloader
 import sklearn.svm
 import itertools
@@ -28,25 +28,35 @@ def compute_overall_metrics(metrics_matrix):
     print("\n Overall Results : \n accuracy = {} \n precision = {} \n recall = {} \n F1 score = {}".format(
         accuracy, precision, recall, F1_score))
 
-def get_metrics(dict_train_features, dict_test_features):
+def get_metrics( dict_test_features):
 
     metrics_matrix = []
     n = len(classes())
     m = len(featuresnames())
+    datasets = generate_datasets
     for subset in itertools.combinations(classes(), 2):
         class_0 = subset[0]
         class_1 = subset[1]
+        if datasets:
+            X_train_0 = dataloader.dict_train_feats(class_0)
+            X_train_1 = dataloader.dict_train_feats(class_1)
+        else:
+            X_train_0 = dataloader.dict_train_features(class_0)
+            X_train_1 = dataloader.dict_train_features(class_1)
 
-        X_train_0 = dataloader.dict_train_features(class_0)
-        X_train_1 = dataloader.dict_train_features(class_1)
         X_train = np.concatenate((X_train_0, X_train_1), axis=0)
 
         y_train_0 = np.zeros((X_train_0.shape[0],))
         y_train_1 = np.ones((X_train_1.shape[0],))
         y_train = np.concatenate((y_train_0, y_train_1), axis=0)
 
-        X_test_0 = dict_test_features[class_0]
-        X_test_1 = dict_test_features[class_1]
+        if datasets:
+            X_test_0 = dataloader.dict_test_feats(class_0)
+            X_test_1 = dataloader.dict_test_feats(class_1)
+        else:
+            X_test_0 = dict_test_features[class_0]
+            X_test_1 = dict_test_features[class_1]
+
         X_test = np.concatenate((X_test_0, X_test_1), axis=0)
 
         y_test_0 = np.zeros((X_test_0.shape[0],))
