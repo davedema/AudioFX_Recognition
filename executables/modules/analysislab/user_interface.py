@@ -29,7 +29,7 @@ def featuresnames():
 
 
 def kbest():
-    return 1
+    return 3
 
 
 def framefeats():
@@ -37,12 +37,20 @@ def framefeats():
 
 
 def datapathtest():
-    return 'C:/Users/jacop/PycharmProjects/CMLShomework/executables/modules/smalldbtest/Guitar/{}'
+    return 'C:/Users/david/Documents/polimi/MATERIOZZE/primo anno/CMLS/DATABASE/Test/{}'
 
 
 def datapathtrain():
-    return 'C:/Users/jacop/PycharmProjects/CMLShomework/executables/modules/smalldbtrain/Guitar/{}'
+    return 'C:/Users/david/Documents/polimi/MATERIOZZE/primo anno/CMLS/DATABASE/Train/{}'
 
+def datapath():
+    return 'C:/Users/david/Documents/polimi/MATERIOZZE/primo anno/CMLS/DATABASE/Train/{}'
 
 def do_plot():
+    return False
+
+def generate_datasets():
     return True
+
+def test_size():
+    return 0.3
