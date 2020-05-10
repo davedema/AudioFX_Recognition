@@ -1,4 +1,10 @@
-from executables import maintest, maintrain
+from executables import maintest, maintrain, main_traintest
+from executables.modules.analysislab import user_interface
 
-maintrain.train()  # train
-maintest.test()  # test
+if user_interface.generate_datasets():
+    main_traintest.traintest()
+    maintrain.train()  # train
+    maintest.test()  # test
+else:
+    maintrain.train()  # train
+    maintest.test()  # test
