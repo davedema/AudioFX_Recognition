@@ -216,7 +216,7 @@ And then we print the metrics, which are values that allow the user to evaluate 
     print('\n\nConfusion matrix:')
     confusionmatrix.compute_cm_multiclass(y_test_mc, y_test_predicted_mv)  # print confusion matrix
 
-
+And with this we conclude the high level explanation of the code. We now dive inside the modules and analyse functions.
 
 # Low Level Software Explanation
 
