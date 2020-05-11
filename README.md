@@ -82,18 +82,18 @@ We now need to rebuild the objects with class clustered data since it allows mor
     dict_test_feats = {'NoFX': [], 'Distortion': [], 'Tremolo': []} # I declare the empty objects 
     n_features = len(user_interface.featuresnames()) 
     
-    for c in np.arange(len(classes)):                         # for each class indentified by 0,1,2
-        condition = np.mod(y_train, 3) == c                   # condition on y_train that selects members of classes()[c]
-        n_train = len(y_train[condition])                     # nuber of files of the class inside X_train
-        train_feats = np.zeros((n_train, n_features))         # create a zeros matrix that will fill the c class of the object
+    for c in np.arange(len(classes)):                      # for each class indentified by 0,1,2
+        condition = np.mod(y_train, 3) == c                # condition on y_train that selects members of classes()[c]
+        n_train = len(y_train[condition])                  # nuber of files of the class inside X_train
+        train_feats = np.zeros((n_train, n_features))      # create a zeros matrix that will fill the c class of the object
         k=0
 
-        for i in np.arange(len(y_train)):                     # checks on every element of y_train                   
-            if y_train[i] == c:                               # if the i-th element is of c class
-                train_feats[k,:] = X_train[i, :]              # fill k-th row of the zeros matrix with the ith row of X_train
-                k = k+1                                       # increment k
-        dict_train_feats[classes[c]] = train_feats            # at the end of the iteration, puts the matrix inside the object
-    
+        for i in np.arange(len(y_train)):                  # checks on every element of y_train                   
+            if y_train[i] == c:                            # if the i-th element is of c class
+                train_feats[k,:] = X_train[i, :]           # fill k-th row of the zeros matrix with the ith row of X_train
+                k = k+1                                    # increment k
+        dict_train_feats[classes[c]] = train_feats         # at the end of the iteration, puts the matrix inside the object
+  
 
     for c in np.arange(len(classes)):
         . # same structure of before
@@ -103,15 +103,118 @@ We now have reconstructed dict_train_feats and dict_test_feats, but we need to s
 
     savetraindata.save_datasets(dict_train_feats, dict_test_feats)
 
-## Save_Data e Dataloader
+## Savetraindata e Dataloader
+
+#### Savetrainata
+We find two functions in this module. They both save arrays and matrices using the dump option of numpy elements :
+**savedata(dict_train_features, featurelst, feat_max, feat_min)** and **save_datasets(dict_train_feats, dict_test_feats)**.
+
+The first one is used to save the data at the end of the training set, after features selection; 
+it doesn't re-save dict_train_features in the case in which generate_datasets is True.
+The second one is used to save test and train sets in the case in which generate_datasets is True.
+
+#### Dataloader
+This module defines many functions which retrieve the saved data returning numpy.load algorithm, those functions are:
+
+**Trainselected()**  returns selected features
+**featmax()**  returns maximus over the features
+**featmin()** returns minimum over the features
+**dict_train_features(c)** returns the c class matrix of dict_train_features (generate_datasets == true)
+**dict_train_feats(c)** returns the c class matrix of dict_train_feats (generate_datasets == true)
+**dict_test_feats(c)** returns the c class matrix of dict_train_feats (generate_datasets == true)
+**columns_selected()** returns the columns selected on feature selection
 
 ## Maintrain
 
 We first need to have reference of the path where ve have stored the train database from the **user_interface.py** element function datapathtrain()
 
-We extract train features via the function  getdicttrainfeatures(path) which is in the module **trainingloop.py**, there fore we obtain 
-dict_train_features is an object that stores the datas in a matrix for each class
+    path = user_interface.datapathtrain()
+    classes = user_interface.classes()
+    datasets = user_interface.generate_datasets()
+
+If generate_datasets is true, we get the train features via the dataloader, otherwise we need to do the training loop .
+In any case we need to label the files with an y vector.
+
+    if(datasets):
+        dict_train_features = [dataloader.dict_train_feats(c) for c in classes ]
+        X_train = [dict_train_features[c] for c in np.arange(len(classes))]
+    else:
+        dict_train_features = trainingloop.getdicttrainfeatures(path)  # compute train features
+        X_train = [dict_train_features[c] for c in classes]
+    y_train = [np.ones(X_train[i].shape[0], ) * i for i in np.arange(len(user_interface.classes()))]  # labels
+ 
+We extract max and min in order to normalize the features. If requested by **user_interface.do_plot**, we plot the Train features.
+We then process file in order to use  **featureselection.py** file functions that realizes feature selection and save the data.
+
+    feat_max = np.max(np.concatenate((X_train[0], X_train[1], X_train[2]), axis=0), axis=0)
+    feat_min = np.min(np.concatenate((X_train[0], X_train[1], X_train[2]), axis=0), axis=0)
+    X_train_normalized = [(X_train[c] - feat_min) / (feat_max - feat_min)
+                          for c in np.arange(len(user_interface.classes()))]  # normalized matrix
+    if user_interface.do_plot():
+        plotfeatures.plotfeats(X_train_normalized)  # plot train features
+    X_train_mc_normalized = np.concatenate((X_train_normalized[0], X_train_normalized[1], X_train_normalized[2]),
+                                           axis=0)
+    y_train_mc = np.concatenate((y_train[0], y_train[1], y_train[2]), axis=0)
+    featurelst = featureselection.getfeaturelist(X_train_mc_normalized, y_train_mc)  # feature selection
+    savetraindata.savedata(dict_train_features, featurelst, feat_max, feat_min)  # save data
+
 ## Maintest
+
+We first need to have reference of the path where ve have stored the test database from the **user_interface.py** element function datapathtest()
+
+
+    # begin compute and select features
+    path = user_interface.datapathtest()
+    classes = user_interface.classes()
+    datasets = user_interface.generate_datasets()
+
+If generate_datasets is true, we get the test features via the dataloader, otherwise we need to do the test loop .
+In any case we need to select the right number of columns (features), update X_test and label the files with an y vector.
+
+    if (datasets):
+        dict_test_features = [dataloader.dict_test_feats(c) for c in classes]
+        X_test = [dict_test_features[c] for c in np.arange(len(classes))]
+    else:
+        dict_test_features = testloop.getdicttestfeatures(path)  # test features
+        X_test = [dict_test_features[c] for c in classes]
+
+    columns_selected = dataloader.colums_selected()  # positions of selected features
+    X_test_selected = [X_test[i][:, columns_selected] for i in np.arange(len(user_interface.classes()))]  # selection
+    y_test = [np.ones(X_test[i].shape[0], ) * i for i in np.arange(len(user_interface.classes()))]  # keys
+    
+We process datas in order to feed them to sklearn Support Vector Machine implementation. Notice that wheter generate_datasets is True we use different dataloader functions.    
+    
+    y_test_mc = np.concatenate((y_test[0], y_test[1], y_test[2]), axis=0)
+    X_test_normalized = [
+        ((X_test_selected[c] - dataloader.featmin()[columns_selected]) /
+         (dataloader.featmax()[columns_selected] - dataloader.featmin()[columns_selected]))
+        for c in np.arange(len(user_interface.classes()))]  # normalized matrix
+    X_test_mc_normalized = np.concatenate((X_test_normalized[0], X_test_normalized[1], X_test_normalized[2]), axis=0)
+    if datasets:
+        X_train_normalized_loaded = [
+            (dataloader.dict_train_feats(c) - dataloader.featmin()) /
+            (dataloader.featmax() - dataloader.featmin())
+            for c in user_interface.classes()]  # train features
+
+    else:
+        X_train_normalized_loaded = [
+            (dataloader.dict_train_features(c) - dataloader.featmin()) /
+            (dataloader.featmax() - dataloader.featmin())
+        for c in user_interface.classes()]  # train features
+
+    X_train_normalized_loaded_selected = [X_train_normalized_loaded[i][:, columns_selected]   for i in np.arange(len(classes)) ]  
+    y_train_selected = [np.ones(X_train_normalized_loaded_selected[i].shape[0], ) * i         for i in np.arange(len(classes)) ]
+    
+We now feed the data to sklearn.SVM using our **supportvectormachines.py** file function
+
+    y_test_predicted_mv = supportvectormachines.getpredictions(X_train_normalized_loaded_selected,y_train_selected,X_test_mc_normalized)
+   
+And then we print the metrics, which are values that allow the user to evaluate its classification, and a confusion matrix, that makes the user see how able is the software in the classification of files. We will see those modules in detail.
+
+    print('\n\nMetrics:')
+    metrics.get_metrics(dict_test_features)
+    print('\n\nConfusion matrix:')
+    confusionmatrix.compute_cm_multiclass(y_test_mc, y_test_predicted_mv)  # print confusion matrix
 
 
 
