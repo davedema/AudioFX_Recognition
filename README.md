@@ -35,9 +35,7 @@ Those are the parameters with which the user sets the software.
 Here we will analyse the structure and the overall architecture of the code, providing hints about the behaviour of the software at an higher level of abstraction.
 
 ## Main
-Here we define the overall structure of the code, we need to differentiate between the case in which we want to generate test/train 
-datasets from a single dataset and the case in which we already have our datasets. 
-This is specified by the **user_interface.generate_datasets**, therefore:
+The software follows two main algorythms, wether **generate_datasets** Flag in the user interface is True or False:
 
 #### if datasets == True
  the software will implement this pipeline: 
