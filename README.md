@@ -116,13 +116,13 @@ The second one is used to save test and train sets in the case in which generate
 #### Dataloader
 This module defines many functions which retrieve the saved data returning numpy.load algorithm, those functions are:
 
--**Trainselected()**  returns selected features
--**featmax()**  returns maximus over the features
--**featmin()** returns minimum over the features
--**dict_train_features(c)** returns the c class matrix of dict_train_features (generate_datasets == true)
--**dict_train_feats(c)** returns the c class matrix of dict_train_feats (generate_datasets == true)
--**dict_test_feats(c)** returns the c class matrix of dict_train_feats (generate_datasets == true)
--**columns_selected()** returns the columns selected on feature selection
+- **Trainselected()**  returns selected features
+- **featmax()**  returns maximus over the features
+- **featmin()** returns minimum over the features
+- **dict_train_features(c)** returns the c class matrix of dict_train_features (generate_datasets == true)
+- **dict_train_feats(c)** returns the c class matrix of dict_train_feats (generate_datasets == true)
+- **dict_test_feats(c)** returns the c class matrix of dict_train_feats (generate_datasets == true)
+- **columns_selected()** returns the columns selected on feature selection
 
 ## Maintrain
 
