@@ -71,13 +71,11 @@ def getfeatures(audio):
     featurearray[6] = zero_crossing(audio)
     a = mfccs(audio)
     mffcoeff = np.average(a, axis=1)
-    if np.isnan(np.array(mffcoeff).all()):
-        print('found')
 
     framedata = frameanalisys.getframefeatures(audio)
     featurearray[2] = framedata[0]
     featurearray[3] = framedata[1]
-    featurearray[7] = framedata[2]
+
     for i in np.arange(mffcoeff.shape[0]):
         featurearray[-1 - i] = mffcoeff[-1 - i]
     return featurearray

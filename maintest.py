@@ -9,7 +9,7 @@ def test():
     path = pathlib.Path(__file__).parent.absolute()
     dict_test_features = testloop.getdicttestfeatures(path)  # test features
     X_test = [dict_test_features[c] for c in user_interface.classes()]
-    columns_selected = dataloader.colums_selected()  # positions of selected features
+    columns_selected = dataloader.columns_selected()  # positions of selected features
     X_test_selected = [X_test[i][:, columns_selected] for i in np.arange(len(user_interface.classes()))]  # selection
     y_test = [np.ones(X_test[i].shape[0], ) * i for i in np.arange(len(user_interface.classes()))]  # keys
     y_test_mc = np.concatenate((y_test[0], y_test[1], y_test[2]), axis=0)

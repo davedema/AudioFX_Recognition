@@ -43,6 +43,7 @@ def get_metrics(dict_test_features):
         X_train_0 = dataloader.dict_train_features(class_0)
         X_train_1 = dataloader.dict_train_features(class_1)
         X_train = np.concatenate((X_train_0, X_train_1), axis=0)
+        X_train = X_train[:, dataloader.columns_selected()]
 
         y_train_0 = np.zeros((X_train_0.shape[0],))
         y_train_1 = np.ones((X_train_1.shape[0],))
@@ -51,6 +52,7 @@ def get_metrics(dict_test_features):
         X_test_0 = dict_test_features[class_0]
         X_test_1 = dict_test_features[class_1]
         X_test = np.concatenate((X_test_0, X_test_1), axis=0)
+        X_test = X_test[:, dataloader.columns_selected()]
 
         y_test_0 = np.zeros((X_test_0.shape[0],))
         y_test_1 = np.ones((X_test_1.shape[0],))
