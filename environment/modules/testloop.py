@@ -9,7 +9,7 @@ def getdicttestfeatures(path):
 
     for c in user_interface.classes():  # loops over classes
         n_features = len(user_interface.featuresnames())
-        test_root = path + '/environment/databases/test/{}'.format(c)
+        test_root = str(path) + '/environment/databases/test/{}'.format(c)
         # test_root = 'Test/{}/'.format(c)
         class_test_files = [f for f in os.listdir(test_root) if f.endswith('.wav')]
         n_test = len(class_test_files)

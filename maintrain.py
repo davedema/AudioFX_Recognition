@@ -5,10 +5,11 @@ import plotselected
 import print_feature_sel
 from environment.modules import trainingloop, featureselection, savetraindata
 from environment.modules.analysislab import user_interface
+import pathlib
 
 
 def train():
-    path = user_interface.datapathtest()
+    path = pathlib.Path(__file__).parent.absolute()
     dict_train_features = trainingloop.getdicttrainfeatures(path)  # compute train features
     X_train = [dict_train_features[c] for c in user_interface.classes()]
     y_train = [np.ones(X_train[i].shape[0], ) * i for i in np.arange(len(user_interface.classes()))]  # keys

@@ -1,11 +1,12 @@
 from environment.modules import testloop, confusionmatrix, dataloader, supportvectormachines, metrics
 from environment.modules.analysislab import user_interface
 import numpy as np
+import pathlib
 
 
 def test():
     # begin compute and select features
-    path = user_interface.datapathtest()
+    path = pathlib.Path(__file__).parent.absolute()
     dict_test_features = testloop.getdicttestfeatures(path)  # test features
     X_test = [dict_test_features[c] for c in user_interface.classes()]
     columns_selected = dataloader.colums_selected()  # positions of selected features

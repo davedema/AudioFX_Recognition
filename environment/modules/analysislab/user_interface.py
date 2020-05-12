@@ -40,13 +40,5 @@ def framefeats():
     return 3
 
 
-def datapathtest():
-    return 'C:/Users/jacop/PycharmProjects/CMLShomework'
-
-
-def datapathtrain():
-    return 'C:/Users/jacop/PycharmProjects/CMLShomework'
-
-
 def do_plot():
     return False
