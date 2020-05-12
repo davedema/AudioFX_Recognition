@@ -10,6 +10,7 @@ def train():
     datasets = user_interface.generate_datasets()
 
     if(datasets):
+        main_traintest.traintest()
         dict_train_features = [dataloader.dict_train_features(c) for c in classes ]
         X_train = [dict_train_features[c] for c in np.arange(len(classes))]
     else:
@@ -28,9 +29,8 @@ def train():
     y_train_mc = np.concatenate((y_train[0], y_train[1], y_train[2]), axis=0)
     featurelst = featureselection.getfeaturelist(X_train_mc_normalized, y_train_mc)  # feature selection
     savetraindata.savedata(dict_train_features, featurelst, feat_max, feat_min)  # save data
-    print('feature matrix:')
+    print('features:')
     print(user_interface.featuresnames())
-    print(X_train_normalized)
     print('\n\nSelected matrix:')
     print([user_interface.featuresnames()[i] for i in featurelst['selectedcolumns']])
     print(featurelst['featurematrix'])

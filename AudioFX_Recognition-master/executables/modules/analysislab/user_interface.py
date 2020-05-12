@@ -49,7 +49,7 @@ def datapathtrain():
 
 
 def datapath():
-    return 'C:/Users/david/Documents/polimi/MATERIOZZE/primo anno/CMLS/DATABASE/Test/{}'
+    return 'C:/Users/david/Documents/polimi/MATERIOZZE/primo anno/CMLS/DATABASE/Train_database/Guitar/{}'
 
 
 def do_plot():

@@ -2,7 +2,6 @@ from executables.modules import testloop, confusionmatrix, dataloader, supportve
 from executables.modules.analysislab import user_interface
 import numpy as np
 
-
 def test():
     # begin compute and select features
     path = user_interface.datapathtest()
@@ -10,11 +9,13 @@ def test():
     datasets = user_interface.generate_datasets()
 
     if (datasets):
-        dict_test_features = [dataloader.dict_test_feats(c) for c in classes]
-        X_test = [dict_test_features[c] for c in np.arange(len(classes))]
+        dict_test_features = {'NoFX': [], 'Distortion': [], 'Tremolo': []}
+        for c in classes:
+            dict_test_features[c] = dataloader.dict_test_feats(c)
     else:
         dict_test_features = testloop.getdicttestfeatures(path)  # test features
-        X_test = [dict_test_features[c] for c in classes]
+
+    X_test = [dict_test_features[c] for c in classes]
 
     columns_selected = dataloader.columns_selected()  # positions of selected features
     X_test_selected = [X_test[i][:, columns_selected] for i in np.arange(len(user_interface.classes()))]  # selection
@@ -31,15 +32,12 @@ def test():
             (dataloader.featmax() - dataloader.featmin())
             for c in user_interface.classes()]  # train features
 
-
     X_train_normalized_loaded_selected = [
             X_train_normalized_loaded[i][:, columns_selected]
              for i in np.arange(len(classes)) ]  # selection
     y_train_selected = [
             np.ones(X_train_normalized_loaded_selected[i].shape[0], ) * i
              for i in np.arange(len(classes)) ]
-
-
 
     # end compute and select features
     y_test_predicted_mv = supportvectormachines.getpredictions(X_train_normalized_loaded_selected, y_train_selected,
