@@ -48,20 +48,20 @@ def linear(waveform, n):
     return lin_fx
 
 
-# Gets normalized average of the array from index a to b
-def get_indexed_average(frame, a, b):
-    index1 = int(a * (len(frame) - 1))
-    index2 = int(b * (len(frame) - 1))
-    win_frame = np.abs(frame[index1:index2])
-    value = np.average(win_frame)
+def get_dynamic_range(waveform, n):
+    section_length = (int)((len(waveform) - 1) / n)
+    dynamic = np.zeros(n)
+    for i in np.arange(n):
+        wv_section = waveform[i * section_length: (i + 1) * section_length]
+        max = np.amax(wv_section)
+        min = np.amin(wv_section)
+        dynamic[i] = max - min
 
-    return value
+    average_range = np.average(dynamic)
 
+    return average_range
 
-# Feature that discriminates btw tremolo, nofx, distortion
-# obtained by doing the autocorrelation of the subtraction btw filtered waveform and over sections linearized waveform
-# afterwards it counts the number of relative maxima in the autocorrelation of the difference
-def tremolo_feature_2(audio_waveform, a, b):
+def tremolo_feature_2(audio_waveform):
     filtered_wv = butter_lowpass_filter(audio_waveform, 1000, user_interface.Fs(), order=3)
     filtered_wv = np.trim_zeros(filtered_wv)
     maxPos = sp.signal.argrelextrema(filtered_wv, np.greater)
@@ -69,9 +69,15 @@ def tremolo_feature_2(audio_waveform, a, b):
 
     linear_fwv = linear(filtered_wv, n_sections)
     diff_fwv = filtered_wv - linear_fwv
-    result = get_indexed_average(diff_fwv, a, b)
+    diff_fwv = diff_fwv/np.amax(diff_fwv)
+    autocorrelation = autocorrelate(diff_fwv)
+    result = get_dynamic_range(autocorrelation, n_sections)
 
     return result
+
+# Feature that discriminates btw tremolo, nofx, distortion
+# obtained by doing the autocorrelation of the subtraction btw filtered waveform and over sections linearized waveform
+# afterwards it counts the number of relative maxima in the autocorrelation of the difference
 
 
 def tremolo_feature(audio_waveform):
@@ -108,4 +114,5 @@ def getframefeatures(audio):
     maxwaveform = maxrange(train_features_frame[:, 0])  # max amplitude of whole signal
     train_features_frame[:, 0] = train_features_frame[:, 0] / maxwaveform
     tremolofeat = tremolo_feature(train_features_frame[:, 0])
-    return [maxwaveform, tremolofeat]
+    tremolofeat2 = tremolo_feature_2(train_features_frame[:, 0])
+    return [tremolofeat, tremolofeat2]

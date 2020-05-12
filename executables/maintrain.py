@@ -10,7 +10,7 @@ def train():
     datasets = user_interface.generate_datasets()
 
     if(datasets):
-        dict_train_features = [dataloader.dict_train_feats(c) for c in classes ]
+        dict_train_features = [dataloader.dict_train_features(c) for c in classes ]
         X_train = [dict_train_features[c] for c in np.arange(len(classes))]
     else:
         dict_train_features = trainingloop.getdicttrainfeatures(path)  # compute train features
