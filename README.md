@@ -147,7 +147,7 @@ We then process file in order to use  **featureselection.py** file functions tha
     feat_max = np.max(np.concatenate((X_train[0], X_train[1], X_train[2]), axis=0), axis=0)
     feat_min = np.min(np.concatenate((X_train[0], X_train[1], X_train[2]), axis=0), axis=0)
     X_train_normalized = [(X_train[c] - feat_min) / (feat_max - feat_min)
-                          for c in np.arange(len(user_interface.classes()))]  # normalized matrix
+    for c in np.arange(len(user_interface.classes()))]  # normalized matrix
     if user_interface.do_plot():
         plotfeatures.plotfeats(X_train_normalized)  # plot train features
     X_train_mc_normalized = np.concatenate((X_train_normalized[0], X_train_normalized[1], X_train_normalized[2]),
