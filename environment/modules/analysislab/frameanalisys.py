@@ -61,6 +61,7 @@ def get_dynamic_range(waveform, n):
 
     return average_range
 
+
 def tremolo_feature_2(audio_waveform):
     filtered_wv = butter_lowpass_filter(audio_waveform, 1000, user_interface.Fs(), order=3)
     filtered_wv = np.trim_zeros(filtered_wv)
@@ -69,11 +70,12 @@ def tremolo_feature_2(audio_waveform):
 
     linear_fwv = linear(filtered_wv, n_sections)
     diff_fwv = filtered_wv - linear_fwv
-    diff_fwv = diff_fwv/np.amax(diff_fwv)
+    diff_fwv = diff_fwv / np.amax(diff_fwv)
     autocorrelation = autocorrelate(diff_fwv)
     result = get_dynamic_range(autocorrelation, n_sections)
 
     return result
+
 
 # Feature that discriminates btw tremolo, nofx, distortion
 # obtained by doing the autocorrelation of the subtraction btw filtered waveform and over sections linearized waveform

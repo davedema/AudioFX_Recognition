@@ -13,11 +13,12 @@ def train():
     classes = user_interface.classes()
     if user_interface.generate_datasets():
         main_traintest.traintest(path)
-        dict_train_features = [dataloader.dict_train_features(c) for c in classes]
-        X_train = [dict_train_features[c] for c in np.arange(len(classes))]
+        dict_train_features = {'NoFX': [], 'Distortion': [], 'Tremolo': []}
+        for c in classes:
+            dict_train_features[c] = dataloader.dict_train_features(c)
     else:
         dict_train_features = trainingloop.getdicttrainfeatures(path)  # compute train features
-        X_train = [dict_train_features[c] for c in classes]
+    X_train = [dict_train_features[c] for c in classes]
     y_train = [np.ones(X_train[i].shape[0], ) * i for i in np.arange(len(user_interface.classes()))]  # keys
     feat_max = np.max(np.concatenate((X_train[0], X_train[1], X_train[2]), axis=0), axis=0)
     feat_min = np.min(np.concatenate((X_train[0], X_train[1], X_train[2]), axis=0), axis=0)
@@ -32,8 +33,7 @@ def train():
         plotfeatures.plotfeats(X_train_normalized, mask=np.arange(10) + 7)  # plot train features
     else:
         plotselected.plotsel(X_train_normalized, featurelst['selectedcolumns'])
-    if not user_interface.generate_datasets():
-        savetraindata.savedata(dict_train_features, featurelst, feat_max, feat_min)  # save data
+    savetraindata.savedata(dict_train_features, featurelst, feat_max, feat_min)  # save data
     print('feature matrix:')
     print(user_interface.featuresnames())
     print(X_train_normalized)

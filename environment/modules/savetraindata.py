@@ -13,8 +13,7 @@ def savedata(dict_train_features, featurelst, feat_max, feat_min):
 
 def save_datasets(dict_train_feats, dict_test_feats):
     for c in user_interface.classes():
-        dict_train_feats[c].dump('dict_train_feats_' + c + '.dat')
-
+        dict_train_feats[c].dump('dict_train_features_' + c + '.dat')
     for c in user_interface.classes():
         dict_test_feats[c].dump('dict_test_feats_' + c + '.dat')
     return True
