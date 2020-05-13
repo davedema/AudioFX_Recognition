@@ -7,7 +7,13 @@ import pathlib
 def test():
     # begin compute and select features
     path = pathlib.Path(__file__).parent.absolute()
-    dict_test_features = testloop.getdicttestfeatures(path)  # test features
+    classes = user_interface.classes()
+    if user_interface.generate_datasets():
+        dict_test_features = {'NoFX': [], 'Distortion': [], 'Tremolo': []}
+        for c in classes:
+            dict_test_features[c] = dataloader.dict_test_feats(c)
+    else:
+        dict_test_features = testloop.getdicttestfeatures(path)  # test features
     X_test = [dict_test_features[c] for c in user_interface.classes()]
     columns_selected = dataloader.columns_selected()  # positions of selected features
     X_test_selected = [X_test[i][:, columns_selected] for i in np.arange(len(user_interface.classes()))]  # selection

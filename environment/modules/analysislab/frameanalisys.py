@@ -115,4 +115,4 @@ def getframefeatures(audio):
     train_features_frame[:, 0] = train_features_frame[:, 0] / maxwaveform
     tremolofeat = tremolo_feature(train_features_frame[:, 0])
     tremolofeat2 = tremolo_feature_2(train_features_frame[:, 0])
-    return [tremolofeat, tremolofeat2]
+    return [tremolofeat, tremolofeat2, maxwaveform]

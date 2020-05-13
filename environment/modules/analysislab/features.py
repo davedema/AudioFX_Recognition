@@ -66,15 +66,16 @@ def getfeatures(audio):
     featurearray = np.zeros(len(featuresnames()))
     featurearray[0] = compute_flatness(audio)
     featurearray[1] = compute_rolloff(audio)
-    featurearray[4] = average_centroid(audio)
-    featurearray[5] = spectral_bandwith(audio)
-    featurearray[6] = zero_crossing(audio)
+    featurearray[2] = average_centroid(audio)
+    featurearray[3] = spectral_bandwith(audio)
+    featurearray[4] = zero_crossing(audio)
     a = mfccs(audio)
     mffcoeff = np.average(a, axis=1)
 
     framedata = frameanalisys.getframefeatures(audio)
-    featurearray[2] = framedata[0]
-    featurearray[3] = framedata[1]
+    featurearray[5] = framedata[0]
+    featurearray[6] = framedata[1]
+    featurearray[7] = framedata[1]
 
     for i in np.arange(mffcoeff.shape[0]):
         featurearray[-1 - i] = mffcoeff[-1 - i]
