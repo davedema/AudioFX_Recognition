@@ -75,7 +75,7 @@ def getfeatures(audio):
     framedata = frameanalisys.getframefeatures(audio)
     featurearray[5] = framedata[0]
     featurearray[6] = framedata[1]
-    featurearray[7] = framedata[1]
+    featurearray[7] = framedata[2]
 
     for i in np.arange(mffcoeff.shape[0]):
         featurearray[-1 - i] = mffcoeff[-1 - i]
