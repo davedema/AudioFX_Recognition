@@ -106,9 +106,9 @@ def getframefeatures(audio):
         # begin frame analysis
         frame = audio[i * user_interface.hopsize(): i * user_interface.hopsize() + user_interface.winlength()]
         frame_wind = frame * user_interface.window()  # windowing
-        spec = np.fft.fft(frame_wind)
-        nyquist = int(np.floor(spec.shape[0] / 2))
-        spec = spec[0:nyquist]  # frame spectrum
+        #spec = np.fft.fft(frame_wind)
+        #nyquist = int(np.floor(spec.shape[0] / 2))
+        #spec = spec[0:nyquist]  # frame spectrum
         train_features_frame[i, 0] = maxrange(frame)  # save analysis in train_features_frame[i][0,1,..,n data]
         # end frame analysis
 
