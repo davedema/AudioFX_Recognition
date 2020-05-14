@@ -55,5 +55,5 @@ def generate_datasets():
 def test_size():
     return 0.4
 
-def dynamicrange():
+def amplitudescale():
     return 0.05
