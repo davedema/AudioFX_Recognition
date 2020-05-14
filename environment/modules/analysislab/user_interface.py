@@ -54,3 +54,6 @@ def generate_datasets():
 
 def test_size():
     return 0.4
+
+def loudness():
+    return 0.05
