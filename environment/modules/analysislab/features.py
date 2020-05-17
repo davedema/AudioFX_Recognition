@@ -1,7 +1,7 @@
 import librosa
 from environment.modules.analysislab import frameanalisys
 import numpy as np
-from environment.modules.analysislab.user_interface import featuresnames, Fs, hopsize
+from environment.modules.analysislab.user_interface import featuresnames, Fs, hopsize, amplitude_scale
 
 
 # Spectral Flatness
@@ -65,7 +65,7 @@ def mfccs(audio):
 def getfeatures(audio):
     featurearray = np.zeros(len(featuresnames()))
     if np.amax(audio) != 0:
-        audio = audio / np.amax(audio)
+        audio = audio * amplitude_scale() / np.amax(audio)
     featurearray[0] = compute_flatness(audio)
     featurearray[1] = compute_rolloff(audio)
     featurearray[2] = average_centroid(audio)
