@@ -16,7 +16,12 @@ def compute_metrics(gt_labels, predicted_labels):
     precision = TP / (TP + FP)
     recall = TP / (TP + FN)
     F1_score = 2 * precision * recall / (precision + recall)
-    print("Results : \n accuracy = {} \n precision = {} \n recall = {} \n F1 score = {} \n".format(
+
+    accuracy = np.around(accuracy, decimals = 4) * 100
+    precision = np.around(precision, decimals = 4) * 100
+    recall = np.around(recall, decimals = 4) * 100
+    F1_score = np.around(F1_score, decimals = 4) * 100
+    print("Results : \n accuracy = {} % \n precision = {} %  \n recall = {} % \n F1 score = {} % \n".format(
         accuracy, precision, recall, F1_score))
 
     return accuracy, precision, recall, F1_score
@@ -28,7 +33,12 @@ def compute_overall_metrics(metrics_matrix):
     recall = np.average(metrics_matrix.transpose()[2])
     F1_score = np.average(metrics_matrix.transpose()[3])
 
-    print("\n Overall Results : \n accuracy = {} \n precision = {} \n recall = {} \n F1 score = {}".format(
+    accuracy = np.around(accuracy, decimals=4)
+    precision = np.around(precision, decimals=4)
+    recall = np.around(recall, decimals=4)
+    F1_score = np.around(F1_score, decimals=4)
+
+    print("\nOverall Results : \n accuracy = {} % \n precision = {} %  \n recall = {} % \n F1 score = {} % \n".format(
         accuracy, precision, recall, F1_score))
 
 
@@ -39,6 +49,7 @@ def get_metrics(dict_test_features):
     for subset in itertools.combinations(classes(), 2):
         class_0 = subset[0]
         class_1 = subset[1]
+
 
         X_train_0 = dataloader.dict_train_features(class_0)
         X_train_1 = dataloader.dict_train_features(class_1)
