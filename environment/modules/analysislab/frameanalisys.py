@@ -48,7 +48,7 @@ def linear(waveform, n):
     return lin_fx
 
 
-def get_dynamic_range(waveform, n):
+def get_dynamics(waveform, n):
     section_length = (int)((len(waveform) - 1) / n)
     dynamic = np.zeros(n)
     for i in np.arange(n):
@@ -72,7 +72,7 @@ def tremolo_feature_2(audio_waveform):
     diff_fwv = filtered_wv - linear_fwv
     diff_fwv = diff_fwv / np.amax(diff_fwv)
     autocorrelation = autocorrelate(diff_fwv)
-    result = get_dynamic_range(autocorrelation, n_sections)
+    result = get_dynamics(autocorrelation, n_sections)
 
     return result
 
