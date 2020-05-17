@@ -55,7 +55,7 @@ def getpredictions(X_train_normalized, y_train, X_test_mc_normalized):
     print("Average of crossvalidated scores considering all binary cases")
     print(overall_scores)
 
-    y_test_predicted_mc = y_test_predicted_mc.reshape(num_test_files,num_couples)
+    y_test_predicted_mc = y_test_predicted_mc.reshape(num_couples, num_test_files).transpose()
     y_test_predicted_mc = np.array(y_test_predicted_mc, dtype=np.int)
     y_test_predicted_mv = np.zeros((y_test_predicted_mc.shape[0],))
 
