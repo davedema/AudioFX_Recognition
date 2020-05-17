@@ -6,7 +6,7 @@ User can try the software with the following databases:
 
 [TEST SET DATABASE](https://drive.google.com/open?id=1jKyQA0UR4X2FsTq4ugXZaM8vCet6dPoG).
 
-Otherwise user can download files from [IDMT database](https://www.idmt.fraunhofer.de/en/business_units/m2d/smt/audio_effects.html) in order to build his own train and test databases. Whether generate_datasets() is set to True, only the **train folder** in /environment/databases has to be filled.
+Otherwise user can download files from [IDMT database](https://www.idmt.fraunhofer.de/en/business_units/m2d/smt/audio_effects.html) or any other source in order to build his own train and test databases. Whether generate_datasets() is set to True, only the **train folder** in /environment/databases has to be filled.
 
 It's mandatory to put a directory named as the class inside databases train and test folders for each class to be classified. 
 
