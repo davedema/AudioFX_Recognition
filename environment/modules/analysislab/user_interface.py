@@ -27,8 +27,8 @@ def classes():
 def featuresnames():
     return [
         'Flatness', 'Rolloff', 'Avg. centroid', 'Spectral bandwidth', 'Zero crossing rate', 'Tremolo feature',
-        'Tremolo feature2', 'Mfc1', 'Mfc2', 'Mfc3', 'Mfc4'
-        , 'Mfc5', 'Mfc6', 'Mfc7', 'Mfc8', 'Mfc9', 'Mfc10', 'Mfc11', 'Mfc12', 'Mfc13', 'Mfc14', 'Mfc15', 'Mfc16',
+        'Tremolo feature2', 'Mfc1', 'Mfc2', 'Mfc3', 'Mfc4',
+        'Mfc5', 'Mfc6', 'Mfc7', 'Mfc8', 'Mfc9', 'Mfc10', 'Mfc11', 'Mfc12', 'Mfc13', 'Mfc14', 'Mfc15', 'Mfc16',
         'Mfc17', 'Mfc18', 'Mfc19', 'Mfc20']
 
 
@@ -54,6 +54,7 @@ def generate_datasets():
 
 def test_size():
     return 0.4
+
 
 def amplitude_scale():
     return 1
