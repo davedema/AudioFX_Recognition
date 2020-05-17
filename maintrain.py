@@ -34,9 +34,8 @@ def train():
     else:
         plotselected.plotsel(X_train_normalized, featurelst['selectedcolumns'])
     savetraindata.savedata(dict_train_features, featurelst, feat_max, feat_min)  # save data
-    print('feature matrix:')
+    print('All features')
     print(user_interface.featuresnames())
-    print(X_train_normalized)
     print_feature_sel.print_features(featurelst)
     return True
 
