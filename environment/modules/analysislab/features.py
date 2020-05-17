@@ -65,7 +65,7 @@ def mfccs(audio):
 def getfeatures(audio):
     featurearray = np.zeros(len(featuresnames()))
     if np.amax(audio) != 0:
-        audio = audio * loudness() / np.amax(audio)
+        audio = audio / np.amax(audio)
     featurearray[0] = compute_flatness(audio)
     featurearray[1] = compute_rolloff(audio)
     featurearray[2] = average_centroid(audio)
