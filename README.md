@@ -10,7 +10,7 @@ Otherwise user can download files from [IDMT database](https://www.idmt.fraunhof
 
 It's mandatory to put a directory named as the class inside databases train and test folders for each class to be classified. 
 
-The code automatically adapts itself to the number of classes and features computed by checking featuresnames() and classes() in the user_interface. There is no limit to the number of classes and feature to feed to the machine learning algorithm provided that analisyslab modules are correctly set.
+The code automatically adapts itself to the number of classes and features computed by checking featuresnames() and classes() in the user_interface. There is no limit to the number of classes and feature to feed to the machine learning algorithm provided that analisyslab modules and databases folders are correctly set.
 
 The code is organized in modules and all scripts in the root directory can be run. For further insights see /pdf/report.pdf.
 
