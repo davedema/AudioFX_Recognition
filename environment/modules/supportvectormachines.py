@@ -42,7 +42,7 @@ def getpredictions(X_train_normalized, y_train, X_test_mc_normalized):
         for s in scores:
             score_array = np.around(cross_val_score(clf, X, y, cv=kfold(), scoring=s), decimals=4) *100
             score = np.around(np.average(score_array), decimals=2 )
-            print(s, score_array,"average:", score)
+            print(s,"\t", score_array,"\t\t average:", score)
             scores_per_couple[n, scores.index(s)] = score
         print("\n")
         y_predicted = clf.predict(X_test_mc_normalized).reshape(-1, 1)
@@ -52,7 +52,7 @@ def getpredictions(X_train_normalized, y_train, X_test_mc_normalized):
         final_score = np.average(scores_per_couple.transpose()[scores.index(s)])
         overall_scores[s] = np.around(final_score, decimals = 2)
 
-    print("average of crossvalidated scores considering all binary cases")
+    print("Average of crossvalidated scores considering all binary cases")
     print(overall_scores)
 
     y_test_predicted_mc = y_test_predicted_mc.reshape(num_test_files,num_couples)
