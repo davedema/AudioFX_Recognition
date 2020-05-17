@@ -27,9 +27,9 @@ Here the user can choose the subsequent options for the software :
 - **featuresnames** = names of the calculated features
 - **kbest** = number of features chosen by feature selection
 - **framefeats** = number of features computed with frameanalysis.getframefeatures()
-- **do_plot**  = boolean defining wheter to plot train features
+- **do_plot**  = boolean defining wheter to plot all train features (True) or only selected ones (False)
 - **generate_datasets**  = boolean defining wheter generate test/train datasets from a single dataset
-- **test_size**  = number between 0 and 1 defining the test set length with respect to the single database length, it plays a role is generate_datasets is true
+- **test_size**  = number between 0 and 1 defining the test set length with respect to the single database length when generate_datasets is True
 - **amplitude_scale** = set the maximum value of all audio files
 
 
